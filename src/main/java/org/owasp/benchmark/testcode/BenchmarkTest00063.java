@@ -78,16 +78,30 @@ public class BenchmarkTest00063 extends HttpServlet {
             fis = new java.io.FileInputStream(new java.io.File(fileName));
             byte[] b = new byte[1000];
             int size = fis.read(b);
-            response.getWriter()
-                    .println(
-                            "The beginning of file: '"
-                                    + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileName)
-                                    + "' is:\n\n"
-                                    + org.owasp
-                                            .esapi
-                                            .ESAPI
-                                            .encoder()
-                                            .encodeForHTML(new String(b, 0, size)));
+            if (size == -1) {
+                response.getWriter()
+                        .println(
+                                "Could not read from file: '"
+                                        + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileName)
+                                        + "'.");
+            } else if (size == 0) {
+                response.getWriter()
+                        .println(
+                                "The file: '"
+                                        + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileName)
+                                        + "' is empty.");
+            } else {
+                response.getWriter()
+                        .println(
+                                "The beginning of file: '"
+                                        + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileName)
+                                        + "' is:\n\n"
+                                        + org.owasp
+                                                .esapi
+                                                .ESAPI
+                                                .encoder()
+                                                .encodeForHTML(new String(b, 0, size)));
+            }
         } catch (Exception e) {
             System.out.println("Couldn't open FileInputStream on file: '" + fileName + "'");
             response.getWriter()
