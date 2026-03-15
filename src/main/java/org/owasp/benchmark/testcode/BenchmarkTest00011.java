@@ -51,7 +51,7 @@ public class BenchmarkTest00011 extends HttpServlet {
         // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
         param = java.net.URLDecoder.decode(param, "UTF-8");
 
-        java.io.File fileTarget = new java.io.File(param, "/Test.txt");
+        java.io.File fileTarget = new java.io.File(param, "Test.txt");
         response.getWriter()
                 .println(
                         "Access to file: '"
